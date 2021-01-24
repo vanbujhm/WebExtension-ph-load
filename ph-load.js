@@ -44,6 +44,37 @@ function searchVideo(videoId){
 						video720 = media.videoUrl;
 					}else if(media.quality == '1080'){
 						video1080 = media.videoUrl;
+					}else if(Array.isArray(media.quality) && media.videoUrl.includes('get_media')){
+						httpRequest = new XMLHttpRequest();
+						if(!httpRequest){
+							console.log('Giving up :( Cannot create an XMLHTTP instance');
+						}else{
+							httpRequest.open('GET', media.videoUrl, false);
+							httpRequest.send();
+							if(httpRequest.status != 200){
+								console.log( httpRequest.status + ': ' + httpRequest.statusText );
+							} else {
+								mediaInfo = JSON.parse(httpRequest.responseText);
+								
+								//console.log(mediaInfo);
+								
+								for(var i = 0, len = mediaInfo.length; i < len; i++){
+									var media = mediaInfo[i];
+									
+									//console.log(media);
+									
+									if(media.quality == '240'){
+										video240 = media.videoUrl;
+									}else if(media.quality == '480'){
+										video480 = media.videoUrl;
+									}else if(media.quality == '720'){
+										video720 = media.videoUrl;
+									}else if(media.quality == '1080'){
+										video1080 = media.videoUrl;
+									}
+								}
+							}
+						}
 					}
 				}
 			}
