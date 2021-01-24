@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "PH Download!",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "description": "A simple download video from Pornhub",
     "homepage_url": "https://github.com/vanbujhm/WebExtension-ph-load",
     "icons": {
@@ -9,6 +9,7 @@
         "96": "icons/ph-load@2x.png"
     },
     "permissions": [
+		"<all_urls>",
         "tabs",
         "activeTab",
 		"downloads"

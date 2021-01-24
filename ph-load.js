@@ -1,14 +1,40 @@
-function searchVideo(videoId){	
+function searchVideo(videoId){
+	//console.log(videoId);
+	
 	var flashvars = window.wrappedJSObject['flashvars_' + videoId];
+	var qualityItems = window.wrappedJSObject['qualityItems_' + videoId];
 	var video240 = false;
 	var video480 = false;
 	var video720 = false;
 	var video1080 = false;
+	
+	//console.log(flashvars);
+	//console.log(qualityItems);
 
+	if(typeof qualityItems !== 'undefined'){
+		for(var i = 0, len = qualityItems.length; i < len; i++){
+			var media = qualityItems[i];
+			
+			//console.log(media);
+			
+			if(media.text == '240p'){
+				video240 = media.url;
+			}else if(media.text == '480p'){
+				video480 = media.url;
+			}else if(media.text == '720p'){
+				video720 = media.url;
+			}else if(media.text == '1080p'){
+				video1080 = media.url;
+			}
+		}
+	}
 	if(typeof flashvars !== 'undefined'){
 		if(typeof flashvars.mediaDefinitions !== 'undefined'){
 			for(var i = 0, len = flashvars.mediaDefinitions.length; i < len; i++){
 				var media = flashvars.mediaDefinitions[i];
+				
+				//console.log(media);
+				
 				if(media.format == 'mp4'){
 					if(media.quality == '240'){
 						video240 = media.videoUrl;
@@ -46,7 +72,8 @@ if(player !== null){
 		flashvarsString = videoElements[0].firstChild.id;
 	}
 }
-if(typeof flashvarsString !== 'undefined'){
+
+if(typeof flashvarsString !== 'undefined' && typeof flashvarsString !== 'number'){
 	flashvarsString = flashvarsString.replace('playerDiv_', '');
 }
 else{
